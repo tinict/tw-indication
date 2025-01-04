@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router/stack';
+import '../../tw-indication/styles/global.css';
 
 export default function StackLayout() {
   return (
