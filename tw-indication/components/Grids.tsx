@@ -72,19 +72,25 @@ export const Grids: React.FC<GridProps> = ({
                             ]}
                             onPress={item.onPress}
                         >
-                            <Icon
-                                name={item.icon}
-                                size={iconSize}
-                                color={iconColor}
-                                library={item.iconType}
-                            />
-                            <Text
-                                style={[styles.label, labelStyle]}
-                                numberOfLines={2}
-                                ellipsizeMode="tail"
-                            >
-                                {item.label}
-                            </Text>
+                            <View style={styles.itemContent}>
+                                <View style={styles.iconContainer}>
+                                    <Icon
+                                        name={item.icon}
+                                        size={iconSize}
+                                        color={iconColor}
+                                        library={item.iconType}
+                                    />
+                                </View>
+                                <View style={styles.labelContainer}>
+                                    <Text
+                                        style={[styles.label, labelStyle]}
+                                        numberOfLines={2}
+                                        ellipsizeMode="tail"
+                                    >
+                                        {item.label}
+                                    </Text>
+                                </View>
+                            </View>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -104,19 +110,38 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: '#fff',
         borderRadius: 8,
+        shadowColor: '#000',
+        overflow: 'hidden',
+    },
+    itemContent: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
+        paddingVertical: 10,
+        paddingHorizontal: 5,
     },
-    icon: {
+    iconContainer: {
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 25,
         marginBottom: 8,
+        backgroundColor: '#fff',
+    },
+    labelContainer: {
+        width: '100%',
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 4,
     },
     label: {
         fontSize: 12,
         textAlign: 'center',
         color: '#333',
+        lineHeight: 16,
     },
 });

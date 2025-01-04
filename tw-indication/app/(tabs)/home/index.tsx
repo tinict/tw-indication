@@ -82,12 +82,16 @@ export default function Home() {
             }}>
                 <Grids
                     numColumns={4}
-                    spacing={12}
+                    spacing={4}
                     itemHeight={100}
-                    iconSize={32}
+                    iconSize={26}
                     iconColor="#03A9F4"
                     itemStyle={{ backgroundColor: '#fff' }}
-                    labelStyle={{ fontSize: 14, fontWeight: '500' }}
+                    labelStyle={{
+                        fontSize: 12,
+                        fontWeight: '500',
+                        width: '80%',
+                    }}
                     items={gridItems}
                 />
             </View>
