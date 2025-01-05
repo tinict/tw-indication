@@ -43,8 +43,13 @@ export default function MemoInfo({
             useNativeDriver: false,
         }).start();
 
+        if (isExpanded) {
+            onCollapse();
+        } else {
+            onExpand();
+        }
+
         setIsExpanded(!isExpanded);
-        isExpanded ? onCollapse() : onExpand();
     };
 
     return (

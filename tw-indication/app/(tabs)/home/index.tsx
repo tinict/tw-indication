@@ -88,6 +88,14 @@ export default function Home() {
         },
     ];
 
+    const handleExpand = () => {
+        console.log("Expanded");
+    };
+
+    const handleCollapse = () => {
+        console.log("Collapsed");
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.searchContainer}>
@@ -121,6 +129,8 @@ export default function Home() {
                         { label: "Giới tính", value: "Nam" },
                         { label: "Chẩn đoán", value: "Tuyến giáp" },
                     ]}
+                    onExpand={handleExpand}
+                    onCollapse={handleCollapse}
                 />
 
                 <Grids
