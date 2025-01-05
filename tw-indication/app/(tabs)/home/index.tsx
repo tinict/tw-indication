@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Grids } from "@/components/Grids";
 import { useNavigation } from "expo-router";
 import PredictSearchResult from "@/components/PredictSearchResult";
+import MemoInfo from "@/components/MemoInfo";
 
 const mockData = [
     {
@@ -87,6 +88,14 @@ export default function Home() {
         },
     ];
 
+    const handleExpand = () => {
+        console.log("Expanded");
+    };
+
+    const handleCollapse = () => {
+        console.log("Collapsed");
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.searchContainer}>
@@ -107,11 +116,27 @@ export default function Home() {
                 )}
             </View>
 
+
             <View style={styles.gridContainer}>
+                <MemoInfo
+                    title="Thông tin bệnh nhân"
+                    items={[
+                        { label: "Số vào viện", value: "001" },
+                        { label: "Tên bệnh nhân", value: "Nguyễn Văn A" },
+                        { label: "Ngày sinh", value: "01/01/1990" },
+                        { label: "Địa chỉ", value: "Hà Nội, Xuân Phú, Tp Hà Nội" },
+                        { label: "Số điện thoại", value: "099383883" },
+                        { label: "Giới tính", value: "Nam" },
+                        { label: "Chẩn đoán", value: "Tuyến giáp" },
+                    ]}
+                    onExpand={handleExpand}
+                    onCollapse={handleCollapse}
+                />
+
                 <Grids
                     numColumns={4}
                     spacing={4}
-                    itemHeight={100}
+                    itemHeight={120}
                     iconSize={26}
                     iconColor="#03A9F4"
                     itemStyle={{ backgroundColor: "#fff" }}
