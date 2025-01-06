@@ -5,6 +5,7 @@ import {
 } from "react-native";
 
 import TextInputList from "@/components/TextInputList";
+import DateTimePicker from "@/components/DateTimePicker";
 
 type TextInputItem = {
     label: string;
@@ -20,6 +21,18 @@ type InstructionFormProps = {
 const InstructionForm: React.FC<InstructionFormProps> = ({ inputValues, onInputChange }) => {
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <DateTimePicker
+                dateLabel={"Ngày y lệnh"}
+                customStyles={{
+                    marginBottom: 15
+                }}
+            />
+            <DateTimePicker
+                dateLabel={"Ngày TH"}
+                customStyles={{
+                    marginBottom: 15
+                }}
+            />
             <TextInputList
                 textInputs={inputValues}
                 handleInputChange={onInputChange}
