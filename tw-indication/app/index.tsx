@@ -1,5 +1,6 @@
+import LoaderLogo from "@/components/LoaderLogo";
 import { useRouter } from "expo-router";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 
 export default function App() {
     const router = useRouter();
@@ -13,6 +14,15 @@ export default function App() {
             >
                 <Text style={styles.buttonText}>Go to Home</Text>
             </TouchableOpacity>
+            {/* Loader Inside Logo */}
+            {/* <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <LoaderLogo
+                    logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0qCreqkTZL0F0bF9kZctFE1XVFocO__70kw&s"
+                    loaderColor="red"
+                    size={150}
+                    thickness={6}
+                />
+            </SafeAreaView> */}
         </View>
     );
 };
