@@ -46,7 +46,7 @@ const ItemSelector: React.FC<ItemSelectorProps> = ({
 interface FullscreenModalProps {
     data: any[];
     isModalVisible: boolean;
-    setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsModalVisible: any;
     customComponent: (item: any) => React.ReactNode;
     onSelected: (item: any) => void;
 }
@@ -89,12 +89,12 @@ const FullscreenModal: React.FC<FullscreenModalProps> = ({
                                     setIsModalVisible={setIsModalVisible}
                                 />
                             </ScrollView>
-                            <Pressable
+                            <TouchableOpacity
                                 style={[styles.button, styles.buttonClose]}
                                 onPress={() => setIsModalVisible(false)}
                             >
                                 <Text style={styles.textStyle}>Thoát</Text>
-                            </Pressable>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: 'white',
-        padding: 10,
         paddingTop: Platform.OS === 'android' ? 0 : 50,
         paddingBottom: 20,
         alignItems: 'center',
@@ -138,6 +137,7 @@ const styles = StyleSheet.create({
         width: '90%',
     },
     serviceItem: {
+        width: "100%",
         padding: 10,
         marginBottom: 10,
         backgroundColor: '#fff',
