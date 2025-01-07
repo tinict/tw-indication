@@ -6,6 +6,7 @@ import {
 import Instructions from './components/instructions';
 import Medicines from './components/medicines';
 import DiagnosticServices from './components/diagnostic-services';
+import SurgicalServices from './components/surgical-services';
 
 const tabs = [
     {
@@ -35,8 +36,8 @@ const tabs = [
     {
         label: 'Phẫu thuật',
         content: (
-            <View>
-                <Text>Phẫu thuật</Text>
+            <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                <SurgicalServices />
             </View>
         ),
     },

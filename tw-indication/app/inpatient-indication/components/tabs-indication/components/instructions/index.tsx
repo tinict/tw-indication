@@ -67,14 +67,15 @@ const Instructions = React.memo(() => {
                     onInputChange={handleInputChange}
                 />
             </View>
-            <View style={styles.footer}>
+
+            {/* <View style={styles.footer}>
                 <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
                     <Text style={styles.buttonText}>Lưu</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
                     <Text style={styles.buttonText}>Lấy lại</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </SafeAreaView>
     );
 });
