@@ -2,9 +2,11 @@ import { useState } from "react";
 import {
     View,
     StyleSheet,
+    TouchableOpacity
 } from "react-native";
 import { Searchbar } from "react-native-paper";
 import MedicineList from "./components/medicine-list";
+import Icon from "@/components/Icon";
 
 const MOCK_MEDICINES = [
     {
@@ -15,70 +17,6 @@ const MOCK_MEDICINES = [
         "tonKho": 5846.00,
         "tonDuTinh": 5846.00,
         "giaTT": 294.00,
-        "chenhLech": 0.00,
-        "tiLe": 100,
-        "maKho": "011",
-        "maHoatChat": "40.48",
-        "maHoatChatTT": "",
-        "dvt": "Gói",
-        "bh": true
-    },
-    {
-        "maThuoc": "008347",
-        "tenThuoc": "Alcaine 0,5%-5mg/ml - 15ml Thuốc gây tê, thay đổi số visa 540110001624, ngày 18/11/2024",
-        "hoatChat": "Proparacain hydroclorid",
-        "giaBHYT": 39380.00,
-        "tonKho": 37.00,
-        "tonDuTinh": 37.00,
-        "giaTT": 39380.00,
-        "chenhLech": 0.00,
-        "tiLe": 100,
-        "maKho": "011",
-        "maHoatChat": "40.20",
-        "maHoatChatTT": "",
-        "dvt": "Lọ",
-        "bh": true
-    },
-    {
-        "maThuoc": "008214",
-        "tenThuoc": "Efferalgan Codeine-500mg + 30mg",
-        "hoatChat": "Paracetamol + codein phosphat",
-        "giaBHYT": 3758.00,
-        "tonKho": 17.00,
-        "tonDuTinh": 17.00,
-        "giaTT": 3758.00,
-        "chenhLech": 0.00,
-        "tiLe": 100,
-        "maKho": "011",
-        "maHoatChat": "40.50",
-        "maHoatChatTT": "",
-        "dvt": "Viên",
-        "bh": true
-    },
-    {
-        "maThuoc": "008211",
-        "tenThuoc": "Efferalgan-150mg Viên thuốc đạn",
-        "hoatChat": "Paracetamol (acetaminophen)",
-        "giaBHYT": 2420.00,
-        "tonKho": 730.00,
-        "tonDuTinh": 724.00,
-        "giaTT": 2420.00,
-        "chenhLech": 0.00,
-        "tiLe": 100,
-        "maKho": "011",
-        "maHoatChat": "40.48",
-        "maHoatChatTT": "",
-        "dvt": "Viên",
-        "bh": true
-    },
-    {
-        "maThuoc": "007721",
-        "tenThuoc": "Efferalgan-250mg",
-        "hoatChat": "Paracetamol (acetaminophen)",
-        "giaBHYT": 3280.00,
-        "tonKho": 27473.00,
-        "tonDuTinh": 27466.00,
-        "giaTT": 3280.00,
         "chenhLech": 0.00,
         "tiLe": 100,
         "maKho": "011",
@@ -103,71 +41,87 @@ const MOCK_MEDICINES = [
         "dvt": "Viên",
         "bh": true
     },
-    {
-        "maThuoc": "007723",
-        "tenThuoc": "Efferalgan-80mg",
-        "hoatChat": "Paracetamol (acetaminophen)",
-        "giaBHYT": 1938.00,
-        "tonKho": 2476.00,
-        "tonDuTinh": 2476.00,
-        "giaTT": 1938.00,
-        "chenhLech": 0.00,
-        "tiLe": 100,
-        "maKho": "011",
-        "maHoatChat": "40.48",
-        "maHoatChatTT": "",
-        "dvt": "Gói",
-        "bh": true
-    }
 ];
 
 export default function Medicines() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [filteredMedicines, setFilteredMedicines] = useState(MOCK_MEDICINES);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const onSearch = () => {
+        const filtered = MOCK_MEDICINES.filter((medicine) =>
+            medicine.tenThuoc.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        
+        setFilteredMedicines(filtered);
+        setModalVisible(true);
+    };
 
     return (
         <View style={{ flex: 1 }}>
-            <View
-                style={{
-                    flex: 1,
-                    padding: 12,
-                }}
-            >
-                <Searchbar
-                    placeholder="Nhập tên thuốc"
-                    onChangeText={(query) => setSearchQuery(query)}
-                    value={searchQuery}
-                    style={styles.searchbar}
-                />
+            <View style={{ flex: 1, padding: 12 }}>
+                <View
+                    style={{
+                        width: "100%",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: 12,
+                    }}
+                >
+                    <TouchableOpacity>
+                        <Icon
+                            name="options"
+                            library="Ionicons"
+                            size={28}
+                            style={{
+                                marginRight: 10,
+                                color: "#555",
+                            }}
+                        />
+                    </TouchableOpacity>
+                    <Searchbar
+                        placeholder="Nhập tên thuốc"
+                        onChangeText={(query) => setSearchQuery(query)}
+                        value={searchQuery}
+                        style={{
+                            flex: 1,
+                            borderRadius: 12,
+                            elevation: 2,
+                            backgroundColor: "#f7f7f7",
+                            paddingHorizontal: 5,
+                        }}
+                        onSubmitEditing={onSearch}
+                        returnKeyType="search"
+                    />
+                </View>
 
                 <MedicineList
-                    modalVisible={false}
-                    setModalVisible={() => { }}
-                    listMedicine={MOCK_MEDICINES}
-                    prescriptions={[{
-                        "maThuoc": "007723",
-                        "tenThuoc": "Efferalgan-80mg",
-                        "hoatChat": "Paracetamol (acetaminophen)",
-                        "giaBHYT": 1938.00,
-                        "tonKho": 2476.00,
-                        "tonDuTinh": 2476.00,
-                        "giaTT": 1938.00,
-                        "chenhLech": 0.00,
-                        "tiLe": 100,
-                        "maKho": "011",
-                        "maHoatChat": "40.48",
-                        "maHoatChatTT": "",
-                        "dvt": "Gói",
-                        "bh": true
-                    }]}
+                    listMedicine={filteredMedicines}
+                    prescriptions={[
+                        {
+                            "maThuoc": "007723",
+                            "tenThuoc": "Efferalgan-80mg",
+                            "hoatChat": "Paracetamol (acetaminophen)",
+                            "giaBHYT": 1938.00,
+                            "tonKho": 2476.00,
+                            "tonDuTinh": 2476.00,
+                            "giaTT": 1938.00,
+                            "chenhLech": 0.00,
+                            "tiLe": 100,
+                            "maKho": "011",
+                            "maHoatChat": "40.48",
+                            "maHoatChatTT": "",
+                            "dvt": "Gói",
+                            "bh": true
+                        },
+                    ]}
+                    modalVisible={modalVisible}
+                    setModalVisible={(isVisible: any) => {
+                        setModalVisible(isVisible);
+                    }}
                 />
             </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    searchbar: {
-        borderRadius: 12,
-        paddingHorizontal: 10,
-    },
-});

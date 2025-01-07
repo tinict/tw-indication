@@ -15,7 +15,7 @@ interface MedicineItem {
 interface ModalSelectorMedicinesProps {
     data: MedicineItem[];
     isModalVisible: boolean;
-    setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsModalVisible: any;
 };
 
 const ModalSelectorMedicines: React.FC<ModalSelectorMedicinesProps> = ({
