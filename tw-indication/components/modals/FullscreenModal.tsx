@@ -7,6 +7,8 @@ import {
     ScrollView,
     TouchableOpacity,
     StyleSheet,
+    StatusBar,
+    Platform,
 } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -58,7 +60,19 @@ const FullscreenModal: React.FC<FullscreenModalProps> = ({
 }) => {
     return (
         <SafeAreaProvider>
-            <SafeAreaView style={styles.centeredView}>
+            <SafeAreaView
+                style={[
+                    styles.safeAreaView,
+                    {
+                        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                    },
+                ]}
+            >
+                <StatusBar
+                    barStyle="dark-content"
+                    backgroundColor="transparent"
+                    translucent
+                />
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -90,6 +104,10 @@ const FullscreenModal: React.FC<FullscreenModalProps> = ({
 };
 
 const styles = StyleSheet.create({
+    safeAreaView: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
     centeredView: {
         flex: 1,
         justifyContent: 'center',
@@ -103,10 +121,11 @@ const styles = StyleSheet.create({
     },
     modalView: {
         width: '100%',
-        maxHeight: '100%',
+        height: '100%',
         backgroundColor: 'white',
-        borderRadius: 5,
-        padding: 2,
+        padding: 10,
+        paddingTop: Platform.OS === 'android' ? 0 : 50,
+        paddingBottom: 20,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -116,7 +135,7 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         padding: 10,
-        width: 350,
+        width: '90%',
     },
     serviceItem: {
         padding: 10,
@@ -129,45 +148,20 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 2,
     },
-    itemTitle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    itemSubtitle: {
-        fontStyle: 'italic',
-        color: 'brown',
-        marginBottom: 5,
-    },
-    itemHighlight: {
-        fontWeight: 'bold',
-        color: '#53fd',
-    },
-    itemText: {
-        fontSize: 14,
-        color: '#333',
-        marginBottom: 3,
-    },
     button: {
         padding: 10,
     },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
-    },
     buttonClose: {
-        backgroundColor: '#fff',
+        backgroundColor: '#f1f1f1',
         marginTop: 10,
         width: '100%',
-        marginBottom: 10,
+        borderRadius: 8,
+        alignItems: 'center',
     },
     textStyle: {
-        color: '#000',
+        color: '#333',
         fontWeight: 'bold',
         textAlign: 'center',
-    },
-    loadingContainer: {
-        justifyContent: 'flex-start',
-        alignItems: 'center',
     },
 });
 
