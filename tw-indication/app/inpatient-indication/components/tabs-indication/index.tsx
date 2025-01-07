@@ -4,6 +4,7 @@ import {
     Text
 } from 'react-native';
 import Instructions from './components/instructions';
+import Medicines from './components/medicines';
 
 const tabs = [
     {
@@ -17,8 +18,8 @@ const tabs = [
     {
         label: 'Thuốc',
         content: (
-            <View>
-                <Text>Lập chỉ định</Text>
+            <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                <Medicines />
             </View>
         ),
     },
