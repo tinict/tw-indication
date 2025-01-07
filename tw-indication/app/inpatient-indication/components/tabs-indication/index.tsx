@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import Instructions from './components/instructions';
 import Medicines from './components/medicines';
+import DiagnosticServices from './components/diagnostic-services';
 
 const tabs = [
     {
@@ -26,8 +27,8 @@ const tabs = [
     {
         label: 'DVKT',
         content: (
-            <View>
-                <Text>Tờ điều trị</Text>
+            <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                <DiagnosticServices />
             </View>
         ),
     },
