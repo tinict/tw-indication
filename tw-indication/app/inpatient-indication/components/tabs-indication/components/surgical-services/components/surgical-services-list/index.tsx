@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ModalSelectorDiagnosticServices from '../modal-selector-surgical-services';
@@ -10,14 +10,6 @@ interface SurgicalServicesListProps {
     listSurgicalServices: any[];
     surgicalServices: any[];
 };
-
-const data = [
-    {
-        maPT: '007795',
-        tenPT: 'X-Quang',
-        stt: 1,
-    },
-];
 
 const fields = [
     { label: 'Mã phẫu thuật', key: 'maPT' },
@@ -37,8 +29,6 @@ const SurgicalServicesList: React.FC<SurgicalServicesListProps> = ({
     listSurgicalServices,
     surgicalServices,
 }) => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
     return (
         <KeyboardAwareScrollView
             extraScrollHeight={Platform.OS === 'ios' ? 64 : 0}
@@ -46,9 +36,9 @@ const SurgicalServicesList: React.FC<SurgicalServicesListProps> = ({
         >
             {modalVisible && (
                 <ModalSelectorDiagnosticServices
-                    data={data}
-                    isModalVisible={isModalVisible}
-                    setIsModalVisible={setIsModalVisible}
+                    data={listSurgicalServices}
+                    isModalVisible={modalVisible}
+                    setIsModalVisible={setModalVisible}
                     fields={fields}
                 />
             )}
