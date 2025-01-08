@@ -11,25 +11,6 @@ interface DiagnosticServicesListProps {
     diagnosticServices: any[];
 };
 
-const data = [
-    {
-        maDVKT: '001',
-        tenDVKT: 'X-Ray',
-        khoaTH: 'Radiology',
-        donGiaBH: 150000,
-        soLuong: 10,
-        stt: 1,
-    },
-    {
-        maDVKT: '002',
-        tenDVKT: 'MRI',
-        khoaTH: 'Radiology',
-        donGiaBH: 200000,
-        soLuong: 5,
-        stt: 2,
-    },
-];
-
 const fields = [
     { label: 'Mã DVKT', key: 'maDVKT' },
     { label: 'Tên DVKT', key: 'tenDVKT' },
@@ -48,8 +29,6 @@ const DiagnosticServicesList: React.FC<DiagnosticServicesListProps> = ({
     listDiagnosticServices,
     diagnosticServices,
 }) => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
     return (
         <KeyboardAwareScrollView
             extraScrollHeight={Platform.OS === 'ios' ? 64 : 0}
@@ -57,9 +36,9 @@ const DiagnosticServicesList: React.FC<DiagnosticServicesListProps> = ({
         >
             {modalVisible && (
                 <ModalSelectorDiagnosticServices
-                    data={data}
-                    isModalVisible={isModalVisible}
-                    setIsModalVisible={setIsModalVisible}
+                    data={listDiagnosticServices}
+                    isModalVisible={modalVisible}
+                    setIsModalVisible={setModalVisible}
                     fields={fields}
                 />
             )}
