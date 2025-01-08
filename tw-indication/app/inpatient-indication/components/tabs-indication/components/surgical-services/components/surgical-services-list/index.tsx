@@ -43,7 +43,7 @@ const SurgicalServicesList: React.FC<SurgicalServicesListProps> = ({
                 />
             )}
 
-            {listSurgicalServices.length > 0 && (
+            {surgicalServices.length > 0 && (
                 <ListItemAddSurgicalServices
                     label="Danh sách dịch vụ kỹ thuật"
                     data={surgicalServices}
