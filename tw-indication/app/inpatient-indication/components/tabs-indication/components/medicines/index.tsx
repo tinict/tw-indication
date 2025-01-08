@@ -7,6 +7,8 @@ import {
 import { Searchbar } from "react-native-paper";
 import MedicineList from "./components/medicine-list";
 import Icon from "@/components/Icon";
+import PartialOverlaysModal from "@/components/modals/PartialOverlaysModal";
+import TWCheckBox from "@/components/TWCheckBox";
 
 const MOCK_MEDICINES = [
     {
@@ -47,12 +49,13 @@ export default function Medicines() {
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredMedicines, setFilteredMedicines] = useState(MOCK_MEDICINES);
     const [modalVisible, setModalVisible] = useState(false);
+    const [isPartialOverlaysModal, setIsPartialOverlaysModal] = useState(false);
 
     const onSearch = () => {
         const filtered = MOCK_MEDICINES.filter((medicine) =>
             medicine.tenThuoc.toLowerCase().includes(searchQuery.toLowerCase())
         );
-        
+
         setFilteredMedicines(filtered);
         setModalVisible(true);
     };
@@ -69,7 +72,11 @@ export default function Medicines() {
                         marginBottom: 12,
                     }}
                 >
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            setIsPartialOverlaysModal(true);
+                        }}
+                    >
                         <Icon
                             name="options"
                             library="Ionicons"
@@ -80,6 +87,7 @@ export default function Medicines() {
                             }}
                         />
                     </TouchableOpacity>
+
                     <Searchbar
                         placeholder="Nhập tên thuốc"
                         onChangeText={(query) => setSearchQuery(query)}
@@ -95,6 +103,16 @@ export default function Medicines() {
                         returnKeyType="search"
                     />
                 </View>
+
+                <PartialOverlaysModal
+                    visible={isPartialOverlaysModal}
+                    onClose={() => setIsPartialOverlaysModal(false)}
+                    content={
+                        <View>
+                            <TWCheckBox />
+                        </View>
+                    }
+                />
 
                 <MedicineList
                     listMedicine={filteredMedicines}
