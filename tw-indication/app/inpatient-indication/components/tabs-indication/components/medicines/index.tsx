@@ -47,7 +47,7 @@ const MOCK_MEDICINES = [
 
 export default function Medicines() {
     const [searchQuery, setSearchQuery] = useState("");
-    const [filteredMedicines, setFilteredMedicines] = useState(MOCK_MEDICINES);
+    const [filtered, setFiltered] = useState(MOCK_MEDICINES);
     const [modalVisible, setModalVisible] = useState(false);
     const [isPartialOverlaysModal, setIsPartialOverlaysModal] = useState(false);
 
@@ -56,7 +56,7 @@ export default function Medicines() {
             medicine.tenThuoc.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
-        setFilteredMedicines(filtered);
+        setFiltered(filtered);
         setModalVisible(true);
     };
 
@@ -115,7 +115,7 @@ export default function Medicines() {
                 />
 
                 <MedicineList
-                    listMedicine={filteredMedicines}
+                    listMedicine={filtered}
                     prescriptions={[
                         {
                             "maThuoc": "007723",
