@@ -10,6 +10,7 @@ import {
     TextInput,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import AdditionalInfo from "../../additional-info";
 
 export default function ItemSelector({
     item
@@ -93,7 +94,9 @@ export default function ItemSelector({
                     </Text>
                 ))}
             </View>
-            {/* <AdditionalInfo item={item} /> */}
+
+            <AdditionalInfo item={item} />
+
             {/* <DateRangeSelector /> */}
             <View>
                 <View style={styles.infoContainer}>

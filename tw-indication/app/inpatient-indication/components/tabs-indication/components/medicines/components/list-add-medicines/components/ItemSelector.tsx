@@ -98,7 +98,9 @@ export default function ItemSelector({
                     </Text>
                 ))}
             </View>
+
             <AdditionalInfo item={item} />
+            
             {/* <DateRangeSelector /> */}
             <View>
                 <View style={styles.infoContainer}>
