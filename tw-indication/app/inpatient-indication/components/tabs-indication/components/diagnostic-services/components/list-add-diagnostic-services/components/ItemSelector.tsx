@@ -1,4 +1,7 @@
-import { useState } from "react";
+import Icon from "@/components/Icon";
+import PartialOverlaysModal from "@/components/modals/PartialOverlaysModal";
+import TWCheckBox from "@/components/TWCheckBox";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -28,6 +31,8 @@ export default function ItemSelector({
     const [dosage, setDosage] = useState(item.lieuDung);
     const [usageInstructions, setUsageInstructions] = useState(item.cachDung);
 
+    const [isModalOptions, setIsModalOptions] = useState(false);
+
     return (
         <KeyboardAwareScrollView style={styles.selectedItem}>
             <View style={styles.itemRow}>
@@ -36,17 +41,50 @@ export default function ItemSelector({
                     numberOfLines={1}
                     ellipsizeMode="tail"
                 >
-                    Thuốc chỉ định
+                    Dịch vụ kỹ thuật chỉ định
                 </Text>
-                <View style={styles.actionsContainer}>
-                    {/* <ModalBottomOptions item={item} /> */}
+
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        padding: 10,
+                        backgroundColor: "#f9f9f9",
+                        borderRadius: 8,
+                    }}
+                >
+                    <TouchableOpacity
+                        onPress={(item: any) => setIsModalOptions(true)}
+                    >
+                        <Icon
+                            name={"options-sharp"}
+                            size={24}
+                            library={"Ionicons"}
+                        />
+                    </TouchableOpacity>
                     <TouchableOpacity
                         onPress={(item: any) => console.log(item.maThuoc)}
                     >
-                        <Text>Xóa</Text>
+                        <Icon
+                            name={"delete-forever"}
+                            size={24}
+                            library={"MaterialIcons"}
+                        />
                     </TouchableOpacity>
                 </View>
             </View>
+
+            <PartialOverlaysModal
+                visible={isModalOptions}
+                onClose={() => setIsModalOptions(false)}
+                content={
+                    <View>
+                        <TWCheckBox />
+                    </View>
+                }
+            />
+
             {/* <MedicineDetails item={item} /> */}
             <View>
                 {details.map((detail, index) => (
