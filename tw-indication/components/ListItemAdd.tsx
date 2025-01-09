@@ -1,20 +1,22 @@
 import React from 'react';
 import {
-    ScrollView,
     Text,
     View,
     StyleSheet,
+    ScrollView,
+    StatusBar,
 } from 'react-native';
 
 interface Item {
+    id: string;
     [key: string]: any;
-};
+}
 
 interface ListItemAddProps {
     label: string;
     data: Item[];
     customComponent: (item: Item) => React.ReactNode;
-};
+}
 
 export default function ListItemAdd({
     label,
@@ -22,24 +24,24 @@ export default function ListItemAdd({
     customComponent,
 }: ListItemAddProps) {
     return (
-        <View>
+        <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+        >
             <Text style={styles.label}>
                 {label}
             </Text>
-            <ScrollView style={styles.containerScrollView}>
-                {data.map((item, index) => (
-                    <View key={index}>
-                        {customComponent(item)}
-                    </View>
-                ))}
-            </ScrollView>
-        </View>
+            {data.map((item, index) => (
+                <View key={index}>
+                    {customComponent(item)}
+                </View>
+            ))}
+        </ScrollView>
     );
-};
+}
 
 const styles = StyleSheet.create({
-    containerScrollView: {
-        flex: 1
+    scrollContainer: {
+        paddingVertical: 10,
     },
     label: {
         fontSize: 16,
@@ -47,5 +49,5 @@ const styles = StyleSheet.create({
         color: '#333333',
         textAlign: 'center',
         marginVertical: 10,
-    }
+    },
 });

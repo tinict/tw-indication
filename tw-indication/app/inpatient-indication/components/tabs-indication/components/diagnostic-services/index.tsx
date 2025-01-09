@@ -86,6 +86,26 @@ export default function DiagnosticServices() {
                     onSubmitEditing={onSearch}
                     returnKeyType="search"
                 />
+
+                <TouchableOpacity
+                    style={{
+                        marginLeft: 10,
+                        padding: 5,
+                        borderRadius: 8,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    onPress={() => { }}
+                >
+                    <Icon
+                        name="copy"
+                        library="FontAwesome6"
+                        size={28}
+                        style={{
+                            color: "#555",
+                        }}
+                    />
+                </TouchableOpacity>
             </View>
 
             <PartialOverlaysModal

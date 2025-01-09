@@ -19,7 +19,9 @@ interface ListItemAddMedicinesProps {
 };
 
 const ListItemAddMedicines: React.FC<ListItemAddMedicinesProps> = ({
-    label, data }) => {
+    label,
+    data
+}) => {
     return (
         <ListItemAdd
             label={label}

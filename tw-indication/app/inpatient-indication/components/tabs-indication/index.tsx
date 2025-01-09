@@ -12,27 +12,19 @@ const MemoizedDiagnosticServices = React.memo(DiagnosticServices);
 const MemoizedSurgicalServices = React.memo(SurgicalServices);
 
 const InstructionsTab = React.memo(() => (
-    <View style={styles.tabContent}>
-        <MemoizedInstructions />
-    </View>
+    <MemoizedInstructions />
 ));
 
 const MedicinesTab = React.memo(() => (
-    <View style={styles.tabContentWhite}>
-        <MemoizedMedicines />
-    </View>
+    <MemoizedMedicines />
 ));
 
 const DiagnosticServicesTab = React.memo(() => (
-    <View style={styles.tabContentWhite}>
-        <MemoizedDiagnosticServices />
-    </View>
+    <MemoizedDiagnosticServices />
 ));
 
 const SurgicalServicesTab = React.memo(() => (
-    <View style={styles.tabContentWhite}>
-        <MemoizedSurgicalServices />
-    </View>
+    <MemoizedSurgicalServices />
 ));
 
 const TabsIndication = React.memo(() => {
@@ -56,11 +48,9 @@ const TabsIndication = React.memo(() => {
     ], []);
 
     return (
-        <View style={styles.container}>
-            <TabsView
-                tabs={tabs}
-            />
-        </View>
+        <TabsView
+            tabs={tabs}
+        />
     );
 });
 

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import InstructionForm from './components/instruction-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ActionFooter from './components/action-footer';
 
 const Instructions = React.memo(() => {
     const [inputs, setInputs] = useState({
@@ -67,15 +68,6 @@ const Instructions = React.memo(() => {
                     onInputChange={handleInputChange}
                 />
             </View>
-
-            {/* <View style={styles.footer}>
-                <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-                    <Text style={styles.buttonText}>Lưu</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
-                    <Text style={styles.buttonText}>Lấy lại</Text>
-                </TouchableOpacity>
-            </View> */}
         </SafeAreaView>
     );
 });

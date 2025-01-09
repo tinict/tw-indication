@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -12,17 +12,51 @@ interface TabsViewProps {
     tabs: Tab[];
 };
 
-const TabsView: React.FC<TabsViewProps> = ({ tabs }) => {
+const TabButton = memo(({
+    label,
+    isActive,
+    width: tabWidth,
+    onPress
+}: {
+    label: string;
+    isActive: boolean;
+    width: number;
+    onPress: () => void;
+}) => (
+    <TouchableOpacity
+        style={[styles.tab, { width: tabWidth }]}
+        onPress={onPress}
+    >
+        <Text
+            style={[
+                styles.tabText,
+                isActive && styles.activeTabText,
+            ]}
+        >
+            {label}
+        </Text>
+    </TouchableOpacity>
+));
+
+const TabContent = memo(({ content }: { content: React.ReactNode }) => (
+    <View style={styles.contentContainer}>
+        {content}
+    </View>
+));
+
+const TabsView: React.FC<TabsViewProps> = memo(({ tabs }) => {
     const [activeTab, setActiveTab] = useState(0);
     const [translateX] = useState(new Animated.Value(0));
 
-    const handleTabPress = (index: number): void => {
+    const handleTabPress = useCallback((index: number): void => {
         Animated.spring(translateX, {
             toValue: index * (width / tabs.length),
             useNativeDriver: true,
         }).start();
         setActiveTab(index);
-    };
+    }, [tabs.length, translateX]);
+
+    const tabWidth = width / tabs.length;
 
     return (
         <View style={styles.container}>
@@ -32,35 +66,26 @@ const TabsView: React.FC<TabsViewProps> = ({ tabs }) => {
                         styles.indicator,
                         {
                             transform: [{ translateX }],
-                            width: width / tabs.length,
+                            width: tabWidth,
                         },
                     ]}
                 />
 
                 {tabs.map((tab: Tab, index: number) => (
-                    <TouchableOpacity
+                    <TabButton
                         key={index}
-                        style={[styles.tab, { width: width / tabs.length }]}
+                        label={tab.label}
+                        isActive={activeTab === index}
+                        width={tabWidth}
                         onPress={() => handleTabPress(index)}
-                    >
-                        <Text
-                            style={[
-                                styles.tabText,
-                                activeTab === index && styles.activeTabText,
-                            ]}
-                        >
-                            {tab.label}
-                        </Text>
-                    </TouchableOpacity>
+                    />
                 ))}
             </View>
 
-            <View style={styles.contentContainer}>
-                {tabs[activeTab]?.content}
-            </View>
+            <TabContent content={tabs[activeTab]?.content} />
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {

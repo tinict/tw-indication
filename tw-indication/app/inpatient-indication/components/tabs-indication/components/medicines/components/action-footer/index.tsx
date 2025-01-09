@@ -8,20 +8,22 @@ import {
 } from 'react-native';
 
 const ActionFooter = () => {
+    const handleSave = () => {
+        console.log('Save clicked');
+    };
+
+    const handleReset = () => {
+        console.log('Reset clicked');
+    };
+
     return (
         <View style={styles.footer}>
             <TouchableOpacity
                 style={[styles.button, styles.saveButton]}
-                onPress={() => { }}
+                onPress={handleSave}
+                activeOpacity={0.8}
             >
                 <Text style={styles.buttonText}>Lưu</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={[styles.button, styles.resetButton]}
-                onPress={() => { }}
-            >
-                <Text style={styles.buttonText}>Lấy lại</Text>
             </TouchableOpacity>
         </View>
     );
@@ -29,12 +31,16 @@ const ActionFooter = () => {
 
 const styles = StyleSheet.create({
     footer: {
-        position: 'absolute',
-        zIndex: 10,
-        bottom: Platform.OS === 'ios' ? 10 : 55,
-        width: '100%',
+        height: Platform.select({
+            ios: 70,
+            android: 70
+        }),
         backgroundColor: '#fff',
         padding: 10,
+        marginBottom: Platform.select({
+            ios: 10,
+            android: 55
+        }),
         borderTopWidth: 1,
         borderColor: '#ddd',
         flexDirection: 'row',

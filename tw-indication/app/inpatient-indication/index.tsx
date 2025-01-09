@@ -1,7 +1,7 @@
 import TabsView from '@/components/TabsViews';
 import {
     View,
-    Text
+    Text,
 } from 'react-native';
 import InfoPatient from './components/info-patient';
 import TabsIndication from './components/tabs-indication';
@@ -48,9 +48,7 @@ export default function InpatientIndication() {
     ];
 
     return (
-        <View style={{ flex: 1 }}>
-            <TabsView tabs={tabs} />
-        </View>
+        <TabsView tabs={tabs} />
     );
 
 };

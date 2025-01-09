@@ -50,6 +50,13 @@ export default function SurgicalServices() {
                     onPress={() => {
                         setIsPartialOverlaysModal(true);
                     }}
+                    style={{
+                        marginRight: 10,
+                        padding: 5,
+                        borderRadius: 8,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
                 >
                     <Icon
                         name="options"
@@ -61,6 +68,7 @@ export default function SurgicalServices() {
                         }}
                     />
                 </TouchableOpacity>
+
                 <Searchbar
                     placeholder="Nhập tên dịch vụ phẫu thuật"
                     onChangeText={(query) => setSearchQuery(query)}
@@ -75,6 +83,26 @@ export default function SurgicalServices() {
                     onSubmitEditing={onSearch}
                     returnKeyType="search"
                 />
+
+                <TouchableOpacity
+                    style={{
+                        marginLeft: 10,
+                        padding: 5,
+                        borderRadius: 8,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    onPress={() => { }}
+                >
+                    <Icon
+                        name="copy"
+                        library="FontAwesome6"
+                        size={28}
+                        style={{
+                            color: "#555",
+                        }}
+                    />
+                </TouchableOpacity>
             </View>
 
             <PartialOverlaysModal

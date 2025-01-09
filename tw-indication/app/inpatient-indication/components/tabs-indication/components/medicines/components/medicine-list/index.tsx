@@ -1,6 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View } from 'react-native';
 import ModalSelectorMedecine from '../modal-selector-medicine';
 import ListItemAddMedicines from '../list-add-medicines';
 
@@ -17,10 +16,9 @@ const MedicineList: React.FC<MedicineListProps> = ({
     listMedicine,
     prescriptions,
 }) => (
-    <KeyboardAwareScrollView
-        extraScrollHeight={Platform.OS === 'ios' ? 64 : 0}
-        contentContainerStyle={{ paddingBottom: 65 }}
-    >
+    <View style={{
+        flex: 1
+    }}>
         {modalVisible && (
             <ModalSelectorMedecine
                 data={listMedicine}
@@ -35,7 +33,8 @@ const MedicineList: React.FC<MedicineListProps> = ({
                 data={prescriptions}
             />
         )}
-    </KeyboardAwareScrollView>
+    </View>
+
 );
 
 export default MedicineList;
