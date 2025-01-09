@@ -6,19 +6,25 @@ const { width } = Dimensions.get('window');
 interface Tab {
     label: string;
     content: React.ReactNode;
+    icon?: React.ReactNode;
 };
 
 interface TabsViewProps {
     tabs: Tab[];
+    showIcons?: boolean;
 };
 
 const TabButton = memo(({
     label,
+    icon,
+    showIcons,
     isActive,
     width: tabWidth,
     onPress
 }: {
     label: string;
+    icon?: React.ReactNode;
+    showIcons?: boolean;
     isActive: boolean;
     width: number;
     onPress: () => void;
@@ -27,10 +33,16 @@ const TabButton = memo(({
         style={[styles.tab, { width: tabWidth }]}
         onPress={onPress}
     >
+        {showIcons && icon && (
+            <View style={styles.iconContainer}>
+                {icon}
+            </View>
+        )}
         <Text
             style={[
                 styles.tabText,
-                isActive && styles.activeTabText,
+                isActive ? styles.activeTabText : null,
+                showIcons && icon ? styles.tabTextWithIcon : null,
             ]}
         >
             {label}
@@ -44,7 +56,7 @@ const TabContent = memo(({ content }: { content: React.ReactNode }) => (
     </View>
 ));
 
-const TabsView: React.FC<TabsViewProps> = memo(({ tabs }) => {
+const TabsView: React.FC<TabsViewProps> = memo(({ tabs, showIcons = false }) => {
     const [activeTab, setActiveTab] = useState(0);
     const [translateX] = useState(new Animated.Value(0));
 
@@ -75,6 +87,8 @@ const TabsView: React.FC<TabsViewProps> = memo(({ tabs }) => {
                     <TabButton
                         key={index}
                         label={tab.label}
+                        icon={tab.icon}
+                        showIcons={showIcons}
                         isActive={activeTab === index}
                         width={tabWidth}
                         onPress={() => handleTabPress(index)}
@@ -113,11 +127,18 @@ const styles = StyleSheet.create({
     tab: {
         paddingVertical: 15,
         alignItems: 'center',
+        justifyContent: 'center',
+    },
+    iconContainer: {
+        marginBottom: 4,
     },
     tabText: {
         fontSize: 14,
         color: '#666',
         fontWeight: '500',
+    },
+    tabTextWithIcon: {
+        fontSize: 12,
     },
     activeTabText: {
         color: '#2196F3',

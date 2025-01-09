@@ -1,11 +1,8 @@
 import TabsView from '@/components/TabsViews';
-import {
-    View,
-    Text,
-} from 'react-native';
 import InfoPatient from './components/info-patient';
 import TabsIndication from './components/tabs-indication';
 import CommitList from '@/components/CommitList';
+import Icon from '@/components/Icon';
 
 export default function InpatientIndication() {
     const patientData = {
@@ -28,18 +25,21 @@ export default function InpatientIndication() {
     const tabs = [
         {
             label: 'Thông tin',
+            icon: <Icon name={'user-check'} library='Feather' size={24} />,
             content: (
                 <InfoPatient {...patientData} />
             ),
         },
         {
             label: 'Lập chỉ định',
+            icon: <Icon name={'user-doctor'} library='FontAwesome6' size={24} />,
             content: (
                 <TabsIndication />
             ),
         },
         {
             label: 'Tờ điều trị',
+            icon: <Icon name={'book-open-page-variant-outline'} library='MaterialCommunityIcons' size={24} />,
             content: (
                 <CommitList
                     commits={
@@ -79,6 +79,9 @@ export default function InpatientIndication() {
     ];
 
     return (
-        <TabsView tabs={tabs} />
+        <TabsView
+            tabs={tabs}
+            showIcons={true}
+        />
     );
 };
