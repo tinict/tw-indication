@@ -1,5 +1,5 @@
 import { Drawer } from 'expo-router/drawer';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -8,8 +8,19 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { IconSymbol } from '@/components/ui/IconSymbol';
+import RNDropdown from '@/components/RNDropDown';
 
 export default function StackLayout() {
+    const [selectedValue, setSelectedValue] = useState<string>();
+
+    const options = [
+        { label: 'Khoa mắt', value: '1' },
+        { label: 'Khoa phòng chống ngộ độc', value: '2' },
+        { label: 'Phòng mổ tim', value: '3' },
+        { label: 'Khoa răng hàm mặt', value: '4' },
+        { label: 'Khoa dinh dưỡng', value: '5' },
+    ];
+
     return (
         <Drawer
             screenOptions={({ navigation }) => ({
@@ -31,9 +42,12 @@ export default function StackLayout() {
                         <Text style={styles.headerTitle}>
                             Nguyễn Quốc Thành (DUP017)
                         </Text>
-                        <Text style={styles.headerSubtitle}>
-                            Welcome back!
-                        </Text>
+                        <RNDropdown
+                            data={options}
+                            value={selectedValue}
+                            onSelect={(value) => setSelectedValue(value.toString())}
+                            placeholder="Chọn khoa thực hiện"
+                        />
                     </View>
                 ),
                 headerLeft: () => (
