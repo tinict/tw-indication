@@ -97,7 +97,7 @@ export default function Home() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.searchContainer}>
                 <Searchbar
                     placeholder="Mã bệnh nhân / Số vào viện"
@@ -148,7 +148,8 @@ export default function Home() {
                     items={gridItems}
                 />
             </View>
-        </SafeAreaView>
+
+        </View>
     );
 }
 
@@ -158,10 +159,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
     searchContainer: {
-        position: "absolute",
-        top: Platform.select({ ios: 0, android: 10 }),
-        left: 0,
-        right: 0,
         padding: 12,
         zIndex: 1,
     },

@@ -6,7 +6,8 @@ import {
     MaterialIcons,
     MaterialCommunityIcons,
     Fontisto,
-    AntDesign
+    AntDesign,
+    Entypo
 } from '@expo/vector-icons';
 
 type IconProps = {
@@ -44,6 +45,9 @@ const Icon: React.FC<IconProps> = ({
             break;
         case 'Fontisto':
             IconComponent = Fontisto;
+            break;
+        case 'Entypo':
+            IconComponent = Entypo;
             break;
         case 'MaterialCommunityIcons':
             IconComponent = MaterialCommunityIcons;

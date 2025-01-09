@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     container: {
         marginLeft: 12,
         marginRight: 12,
-        marginTop: 12,
         borderColor: "#ccc",
     },
     containerExpanded: {
