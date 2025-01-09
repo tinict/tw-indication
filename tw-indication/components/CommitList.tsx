@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
     View,
     Text,
@@ -6,6 +6,7 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
+import { Modalize } from 'react-native-modalize';
 
 interface Commit {
     id: string;
@@ -51,13 +52,22 @@ const CommitList: React.FC<CommitListProps> = ({ commits, onCommitPress }) => {
         })).sort((a, b) => new Date(b.title).getTime() - new Date(a.title).getTime());
     };
 
+    const modalizeRef = useRef<Modalize>(null);
+
+    const onOpen = () => {
+        modalizeRef.current?.open();
+    };
+
     const renderCommitItem = ({ item }: { item: Commit }) => {
         const typeColor = getCommitTypeColor(item.type);
 
         return (
             <TouchableOpacity
                 style={styles.commitItem}
-                onPress={() => onCommitPress?.(item)}
+                onPress={() => {
+                    onCommitPress?.(item);
+                    onOpen();
+                }}
             >
                 <View style={styles.commitContent}>
                     <View style={styles.titleContainer}>
@@ -83,7 +93,10 @@ const CommitList: React.FC<CommitListProps> = ({ commits, onCommitPress }) => {
         );
     };
 
-    const renderSectionHeader = ({ section: { title } }: { section: CommitSection }) => (
+    const renderSectionHeader = ({
+        section: { title } }: {
+            section: CommitSection
+        }) => (
         <View style={styles.dateHeader}>
             <Text style={styles.dateHeaderText}>Ngày ra y lệnh | {title}</Text>
         </View>
@@ -100,6 +113,7 @@ const CommitList: React.FC<CommitListProps> = ({ commits, onCommitPress }) => {
                 contentContainerStyle={styles.listContent}
                 stickySectionHeadersEnabled={true}
             />
+            <Modalize ref={modalizeRef}><Text>Test</Text></Modalize>
         </View>
     );
 };
