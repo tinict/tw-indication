@@ -1,5 +1,12 @@
 import React, { useState, useCallback, memo } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    StyleSheet,
+    Animated,
+    Dimensions,
+} from 'react-native';
 
 const { width } = Dimensions.get('window');
 
