@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import InfoPatient from './components/info-patient';
 import TabsIndication from './components/tabs-indication';
+import CommitList from '@/components/CommitList';
 
 export default function InpatientIndication() {
     const patientData = {
@@ -40,9 +41,39 @@ export default function InpatientIndication() {
         {
             label: 'Tờ điều trị',
             content: (
-                <View>
-                    <Text>Tờ điều trị</Text>
-                </View>
+                <CommitList
+                    commits={
+                        [
+                            {
+                                id: '2b1ba63',
+                                type: 'Diễn biến',
+                                title: 'Đau thắc ngực, co thức giai đoạn 3',
+                                author: 'Bs. Lê Thành Công',
+                                timestamp: 'yesterday',
+                                date: 'Jan 8, 2025'
+                            },
+                            {
+                                id: 'bddc5ee',
+                                type: 'Diễn biến',
+                                title: 'Tai nạn gãy chân',
+                                author: 'Bs. Lê Thành Công',
+                                timestamp: 'yesterday',
+                                date: 'Jan 8, 2025'
+                            },
+                            {
+                                id: '419cf02',
+                                type: 'Diễn biến',
+                                title: 'Ngộ độc thực phẩm, nôn ra máu',
+                                author: 'Bs. Lê Thành Công',
+                                timestamp: '2 days ago',
+                                date: 'Jan 7, 2025'
+                            }
+                        ]
+                    }
+                    onCommitPress={(
+                        commit) => console.log('Commit pressed:', commit)
+                    }
+                />
             ),
         },
     ];
@@ -50,5 +81,4 @@ export default function InpatientIndication() {
     return (
         <TabsView tabs={tabs} />
     );
-
 };
