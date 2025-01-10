@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     View,
     Text,
     SectionList,
     StyleSheet,
     TouchableOpacity,
+    Platform,
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
@@ -28,6 +29,9 @@ interface CommitListProps {
 };
 
 const CommitList: React.FC<CommitListProps> = ({ commits, onCommitPress }) => {
+    const modalizeRef = useRef<Modalize>(null);
+    const [selectedCommit, setSelectedCommit] = useState<Commit | null>(null);
+
     const getCommitTypeColor = (type: Commit['type']): string => {
         switch (type) {
             case 'Diễn biến':
@@ -52,22 +56,33 @@ const CommitList: React.FC<CommitListProps> = ({ commits, onCommitPress }) => {
         })).sort((a, b) => new Date(b.title).getTime() - new Date(a.title).getTime());
     };
 
-    const modalizeRef = useRef<Modalize>(null);
+    const handleCommitPress = React.useCallback((commit: Commit, event?: any) => {
+        if (Platform.OS === 'android' && event?.persist) {
+            event.persist();
+        }
 
-    const onOpen = () => {
-        modalizeRef.current?.open();
-    };
+        setSelectedCommit(commit);
 
-    const renderCommitItem = ({ item }: { item: Commit }) => {
+        if (onCommitPress) {
+            onCommitPress(commit);
+        }
+
+        if (Platform.OS === 'android') {
+            requestAnimationFrame(() => {
+                modalizeRef.current?.open();
+            });
+        } else {
+            modalizeRef.current?.open();
+        }
+    }, [onCommitPress]);
+
+    const renderCommitItem = React.useCallback(({ item }: { item: Commit }) => {
         const typeColor = getCommitTypeColor(item.type);
 
         return (
             <TouchableOpacity
                 style={styles.commitItem}
-                onPress={() => {
-                    onCommitPress?.(item);
-                    onOpen();
-                }}
+                onPress={(event) => handleCommitPress(item, event)}
             >
                 <View style={styles.commitContent}>
                     <View style={styles.titleContainer}>
@@ -91,16 +106,16 @@ const CommitList: React.FC<CommitListProps> = ({ commits, onCommitPress }) => {
                 </View>
             </TouchableOpacity>
         );
-    };
+    }, []);
 
-    const renderSectionHeader = ({
+    const renderSectionHeader = React.useCallback(({
         section: { title } }: {
             section: CommitSection
         }) => (
         <View style={styles.dateHeader}>
             <Text style={styles.dateHeaderText}>Ngày ra y lệnh | {title}</Text>
         </View>
-    );
+    ), []);
 
     return (
         <View style={styles.container}>
@@ -113,7 +128,24 @@ const CommitList: React.FC<CommitListProps> = ({ commits, onCommitPress }) => {
                 contentContainerStyle={styles.listContent}
                 stickySectionHeadersEnabled={true}
             />
-            <Modalize ref={modalizeRef}><Text>Test</Text></Modalize>
+            <Modalize
+                ref={modalizeRef}
+                onClose={() => setSelectedCommit(null)}
+                handlePosition="inside"
+                modalStyle={styles.modalContainer}
+                handleStyle={styles.modalHandle}
+                threshold={100}
+                velocity={1000}
+                snapPoint={400}
+                withHandle={true}
+                childrenStyle={styles.modalChildren}
+            >
+                {selectedCommit && (
+                    <View style={styles.modalContent}>
+                        <Text>Test</Text>
+                    </View>
+                )}
+            </Modalize>
         </View>
     );
 };
@@ -183,6 +215,27 @@ const styles = StyleSheet.create({
     dateHeaderText: {
         color: '#8B949E',
         fontSize: 12,
+    },
+    modalContainer: {
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: -2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    modalHandle: {
+        backgroundColor: '#E0E0E0',
+        width: 40,
+    },
+    modalContent: {
+        padding: 16,
+    },
+    modalChildren: {
+        paddingHorizontal: 16,
+        paddingTop: 20,
     },
 });
 
